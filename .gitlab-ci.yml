@@ -1,6 +1,3 @@
-default:
-  tags: 
-    - docker
 variables:
   CONTAINER_IMAGE: "flaskapp"
 

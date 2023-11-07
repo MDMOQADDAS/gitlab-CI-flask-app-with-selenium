@@ -1,22 +1,27 @@
+variables:
+  CONTAINER_IMAGE: "flaskapp"
+
 stages:
   - build
   - test
   - registry
 
 build job:
-  stage: build
-  image:  
+  stage: build  
   script:
-    - echo "build job"
+    - docker build -t $CI_REGISTRY_USER/$CONTAINER_IMAGE:$CI_JOB_ID  .
 
 selenium auth test:
   stage: test
+  before_script:
+    - docker run -d $CI_REGISTRY_USER/$CONTAINER_IMAGE:$CI_JOB_ID
   script:
-    - echo "selenium test"
+    - python3 seleniumtest/test_login_selenium.py
+    - python3 seleniumtest/test_register_user.py  
 
 gitlab container registry:
   stage: registry
   before_script:
     - echo "before script"
   script:
-    - echo "script" 
+    - echo "pushing the container images to gitlab..." 

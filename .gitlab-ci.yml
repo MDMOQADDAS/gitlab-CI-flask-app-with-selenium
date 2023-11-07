@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+  - registry
+
+build job:
+  stage: build
+  image:  
+  script:
+    - echo "build job"
+
+selenium auth test:
+  stage: test
+  script:
+    - echo "selenium test"
+
+gitlab container registry:
+  stage: registry
+  before_script:
+    - echo "before script"
+  script:
+    - echo "script" 

@@ -1,14 +1,21 @@
 import unittest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 import re
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 class AuthenticationTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get("http://127.0.0.1:5000/register/")
+        chrome_options = Options()
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--headless")
+        #firefox_options = webdriver.FirefoxOptions()
+        #firefox_options.add_argument('--headless')
 
+        # Use headless Firefox
+        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver.get("http://172.17.0.2:5000/register/")
     def test_registration(self):
         username = "abc"
         email = "abc@gmail.com"
@@ -51,4 +58,3 @@ class AuthenticationTestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
